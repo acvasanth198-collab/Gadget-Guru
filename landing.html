@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gadget Guru - Your Ultimate Mobile Comparison Hub</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* All CSS is the same as the version you liked */
+        :root {
+            --primary-color: #e74c3c;
+            --accent-color: #ffffff;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-color: #333333;
+            --font-family-headings: 'Roboto', sans-serif;
+            --font-family-body: 'Poppins', sans-serif;
+            --transition: all 0.3s ease-in-out;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-family-body); background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .header { position: absolute; top: 0; left: 0; width: 100%; padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+        .signup-btn { font-size: 1rem; font-weight: 600; color: var(--text-primary); background-color: transparent; border: 2px solid var(--border-color); padding: 0.75rem 1.5rem; border-radius: 50px; text-decoration: none; transition: var(--transition); }
+        .signup-btn:hover { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(231, 76, 60, 0.2); }
+        .hero { position: relative; height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; padding: 0 2rem; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://images.unsplash.com/photo-1588880331179-b0b674cbce4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center/cover no-repeat; filter: brightness(0.3); z-index: -1; }
+        .hero-content { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s 0.2s ease-out forwards; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .hero-title { font-family: var(--font-family-headings); font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; color: var(--text-primary); }
+        .hero-subtitle { font-size: clamp(1.2rem, 3vw, 1.5rem); color: var(--text-secondary); max-width: 600px; margin: 0 auto 2.5rem auto; }
+        .hero-buttons { display: flex; justify-content: center; gap: 1.5rem; }
+        .btn { display: inline-block; font-size: 1rem; font-weight: 600; padding: 0.9rem 2.5rem; border-radius: 50px; text-decoration: none; transition: var(--transition); border: 2px solid transparent; position: relative; overflow: hidden; }
+        .btn-primary { background-color: var(--primary-color); color: #fff; }
+        .btn-secondary { background-color: transparent; color: var(--accent-color); border-color: var(--border-color); }
+        .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent); transition: all 0.6s; }
+        .btn:hover::before { left: 100%; }
+        .btn:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); }
+        .btn-primary:hover { box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3); }
+        .features { padding: 100px 5%; background-color: var(--bg-color); }
+        .section-title { font-family: var(--font-family-headings); font-size: 2.8rem; font-weight: 700; text-align: center; margin-bottom: 60px; position: relative; padding-bottom: 15px; }
+        .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: var(--primary-color); border-radius: 2px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .feature-card { background: var(--card-bg); padding: 40px; border-radius: 12px; text-align: center; border: 1px solid var(--border-color); transition: var(--transition); }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); border-color: var(--primary-color); }
+        .feature-icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; }
+        .feature-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; }
+        .feature-description { color: var(--text-secondary); }
+        #scrollTopBtn { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background-color: var(--primary-color); color: #fff; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transform: translateY(100px); transition: opacity 0.4s, transform 0.4s, background-color 0.3s; }
+        #scrollTopBtn.show { opacity: 1; transform: translateY(0); }
+        #scrollTopBtn:hover { background-color: #c0392b; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="signup.html" class="signup-btn">Sign Up</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to Gadget Guru</h1>
+            <p class="hero-subtitle">Your Ultimate Mobile Comparison Hub</p>
+            <div class="hero-buttons">
+                <a href="login.php" class="btn btn-primary">Login</a>
+                <a href="#features-section" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features-section">
+        <h2 class="section-title">Why Choose Gadget Guru?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-list-alt feature-icon"></i>
+                <h3 class="feature-title">Detailed Specifications</h3>
+                <p class="feature-description">Dive deep into every detail. We provide comprehensive info from processor and RAM to screen size and battery life, all in one place.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-columns feature-icon"></i>
+                <h3 class="feature-title">Side-by-Side View</h3>
+                <p class="feature-description">Our intuitive interface lets you view multiple phones side-by-side to easily spot the key differences and make informed decisions.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-filter feature-icon"></i>
+                <h3 class="feature-title">Advanced Filtering</h3>
+                <p class="feature-description">Find the perfect phone for you. Filter our extensive database by brand, price, features, and more to narrow down your choices instantly.</p>
+            </div>
+             <div class="feature-card">
+                <i class="fas fa-search feature-icon"></i>
+                <h3 class="feature-title">Powerful Search</h3>
+                <p class="feature-description">Looking for a specific model? Our powerful and fast search engine helps you find exactly what you're looking for in seconds.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-heart feature-icon"></i>
+                <h3 class="feature-title">Personal Wishlist</h3>
+                <p class="feature-description">Save phones you're interested in to your personal wishlist. Compare your favorites later or keep track of phones you're considering.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-lock-open feature-icon"></i>
+                <h3 class="feature-title">Completely Free to Use</h3>
+                <p class="feature-description">No hidden fees or subscriptions. Get unlimited access to all our powerful comparison tools and detailed information for free, always.</p>
+            </div>
+        </div>
+    </section>
+
+    <button id="scrollTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+    // --- NEW: SCRIPT TO FORCE PAGE TO TOP ON RELOAD ---
+
+    // This is the modern way: it tells the browser not to handle scroll restoration.
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+    // This is a robust fallback that works in most browsers.
+    // It scrolls the page to the top before it's unloaded.
+    window.onbeforeunload = function () {
+        window.scrollTo(0, 0);
+    }
+    
+    // --- REST OF THE SCRIPT ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        // Show or hide the scroll-to-top button
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+        // Scroll to the top when the button is clicked
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
