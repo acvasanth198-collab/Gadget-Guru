@@ -446,5 +446,7 @@ http://localhost/gguru/landing.html
    - Admin-only JSON endpoints reject unauthorized users with HTTP `401 Unauthorized`.
 5. **Account Suspension Verification**: Blocked users (`status = 1`) are denied entry upon authentication.
 6. **Input Sanitization**: Email formats are validated with `filter_var(..., FILTER_VALIDATE_EMAIL)`, numeric identifiers with `FILTER_VALIDATE_INT`, and text inputs with `htmlspecialchars()` during HTML output.
-#   G a d g e t - G u r u  
- 
+#   G a d g e t - G u r u 
+ 
+
+ 
